@@ -1,0 +1,16 @@
+.logo-container{
+	margin:20px;
+	padding:20px;
+}
+
+.Tilt{
+	background:;
+	box-shadow: 10px 5px 10px 5px;
+	background:linear-gradient(89deg, #FF5EDF 0%, #04C8DE 100%);
+}
+.Tilt-inner{
+	text-align:center;
+}
+.Tilt-inner>img{
+	margin-top:25px;
+}
