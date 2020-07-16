@@ -7,6 +7,7 @@ import {ImageLinkForm} from '../component/imageLinkForm/ImageLinkForm.js';
 import {Rank} from '../component/rank/Rank.js';
 import {FaceRecognition} from '../component/faceRecognition/FaceRecognition.js';
 import {SignIn} from '../component/signIn/SignIn.js';
+import {Register} from '../component/register/Register.js';
 
 import '../css/App.css';
 
@@ -77,15 +78,17 @@ export default class App extends Component{
 		<div>
 			<Particles className="particles"
 						params={particlesOption} />
-			<Navigation onRouteChange={this.onRouteChange} />
+			<Navigation onRouteChange={this.onRouteChange} route = {this.state.route} />
 			{this.state.route === 'signin'
 				? <SignIn onRouteChange = {this.onRouteChange} />
-				: <div>
-					<Logo />
-					<Rank />
-					<ImageLinkForm onInputChange={this.onInputChange} onBtnSubmit ={this.onBtnSubmit}/>
-					<FaceRecognition box={this.state.box} url={this.state.imageUrl} />
-				</div>
+				: this.state.route === 'register'
+					? <Register onRouteChange = {this.onRouteChange} />
+					: <div>
+						<Logo />
+						<Rank />
+						<ImageLinkForm onInputChange={this.onInputChange} onBtnSubmit ={this.onBtnSubmit}/>
+						<FaceRecognition box={this.state.box} url={this.state.imageUrl} />
+					  </div>
 			}
 		</div>
 		)
