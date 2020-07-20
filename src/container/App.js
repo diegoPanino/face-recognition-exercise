@@ -1,6 +1,5 @@
 import React,{Component} from 'react';
 import Particles from 'react-particles-js';
-import Clarifai from 'clarifai';
 import {Navigation} from '../component/navigation/Navigation';
 import {Logo} from '../component/logo/Logo';
 import {ImageLinkForm} from '../component/imageLinkForm/ImageLinkForm.js';
@@ -10,10 +9,6 @@ import {SignIn} from '../component/signIn/SignIn.js';
 import {Register} from '../component/register/Register.js';
 
 import '../css/App.css';
-
-const app = new Clarifai.App({
-	apiKey:"69b3ec3d9f8f446bb0ac60c9bc1f2524"
-})
 
 const particlesOption = {
 	particles: {
@@ -86,8 +81,14 @@ export default class App extends Component{
 	onImageSubmit = () =>{
 		this.setState({ imageUrl:this.state.input })
 
-		app.models.predict(Clarifai.FACE_DETECT_MODEL, this.state.input)
-			.then(response => {
+		fetch("http://localhost:3001/imageurl",{
+			method:"post",
+			headers: {"Content-Type":"application/json"},
+			body:JSON.stringify({
+					inputUrl:this.state.imageUrl
+					})
+		}).then(response => response.json())
+		.then(response => {
 				if(response){
 					fetch("http://localhost:3001/image",{
 						method:"put",
@@ -109,7 +110,7 @@ export default class App extends Component{
 			this.setState({isLoggedIn:true,route:route})
 		}
 		else if (route === "signin"){
-			this.setState(Object.assign(this.state,initialState))
+			this.setState(initialState)
 		}
 		else{
 			this.setState({isLoggedIn:false,route:route})
