@@ -27,12 +27,19 @@ export class SignIn extends Component {
 			})
 		}).then(response => response.json())
 		.then(data=>{
-			data === 1
-				? this.props.onRouteChange('home')
-				: alert("Unable to log in")
-					
+			if (data !=="Wrong credentials"){
+				this.props.loadUser(data);
+				this.props.onRouteChange('home');
+			}
+			else{
+				throw new Error(data);
+			}
 			})
-		
+		.catch(err=>{
+				this.setState({email:"",password:""})
+				alert("Unable to log in.")
+				
+		})
 	}
 
 	render(){

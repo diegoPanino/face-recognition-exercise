@@ -1,13 +1,10 @@
 import React from 'react';
 
-export const Rank=()=>{
+export const Rank=({name,rank})=>{
 	return(
 		<div className="center">
 			<div className="white f3">
-				{'Jonny your current rank is...'}		
-				<p className=" center white f1">
-					{'#5'}
-				</p>
+				{name} you recognize { Number(rank) === 1 ? rank+" face" : rank+" faces"}
 			</div>
 		</div>
 		);
